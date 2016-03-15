@@ -119,6 +119,10 @@ end
     "ENEMY SUBMARINE"
   end
 
+  def report_duplicate_shot
+    puts "You've already shot at this position. Shoot again:"
+  end
+
   def display_end_of_game_message(winner, shots, time)
     puts "The winner is #{winner}!!!!\n#{winner} took it down with #{shots} shots in #{time/60} minutes and #{time%60} seconds!"
   end

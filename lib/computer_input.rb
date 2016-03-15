@@ -8,7 +8,7 @@ class ComputerInput
   attr_reader :computer_board, :ships, :shot_array
 
   def initialize
-    @computer_board = Board.new(opponent_id="You")
+    @computer_board = Board.new(opponent_id="YOU")
     @computer_board.ships << @tug_boat = Ship.new(name=first_computer_ship_name)
     @computer_board.ships << @submarine = Ship.new(name=second_computer_ship_name, length=3, filler="S")
     @shot_array = @computer_board.possible_positions.dup.shuffle

@@ -51,14 +51,18 @@ class UserInput
     if ship_length == 2
       array
     elsif ship_length == 3
-      if vertical_ship_orientation(array)
-        middle_cell = ( array.first[0].next + array.first[1] )
-      elsif horizontal_ship_orientation(array)
-        middle_cell = ( array.first[0] + array.first[1].next )
-      end
+      middle_cell = find_middle_cell_in_appropriate_direction(array)
         array << middle_cell
         array = array.sort
       end
+  end
+
+  def find_middle_cell_in_appropriate_direction(array)
+    if vertical_ship_orientation(array)
+      ( array.first[0].next + array.first[1] )
+    elsif horizontal_ship_orientation(array)
+      ( array.first[0] + array.first[1].next )
+    end
   end
 
 end
