@@ -36,12 +36,16 @@ module GameFlow
 
   def begin_game_loop
     game_tracker = GameStats.new
+    game_loop(game_tracker)
+    end_of_game_sequence(game_tracker)
+  end
+
+  def game_loop(game_tracker)
     until @game_over == true do
     user_shot_sequence(game_tracker)
       break if @game_over == true
     computer_shot_sequence(game_tracker)
     end
-    end_of_game_sequence(game_tracker)
   end
 
   def user_shot_sequence(game_tracker)
@@ -160,16 +164,32 @@ module GameFlow
 
   def record_computer_shot(cell_name)
     shot_cell = @user_own.select_cell_by_name(cell_name)
-    if shot_cell.ship == true
-      shot_cell.value = "H"
-      display_computer_shot_result_message(true)
-      @user_own.ships_hit(cell_name)
-      if @user_own.lost_game?
-        @game_over = true
-      end
-    elsif shot_cell.ship == false
-      shot_cell.value = "M"
-      display_computer_shot_result_message(false)
+    redirect_computer_hit_or_miss(shot_cell, cell_name)
+  end
+
+  def redirect_computer_hit_or_miss(shot_cell, cell_name)
+    if cell_is_occupied_by_a_ship(shot_cell)
+      computer_hit_sequence(shot_cell, cell_name)
+      determine_whether_game_lost_by_user
+    elsif !cell_is_occupied_by_a_ship(shot_cell)
+      computer_miss_sequence(shot_cell, cell_name)
+    end
+  end
+
+  def computer_hit_sequence(shot_cell, cell_name)
+    shot_cell.value = "H"
+    display_computer_shot_result_message(true)
+    @user_own.ships_hit(cell_name)
+  end
+
+  def computer_miss_sequence(shot_cell, cell_name)
+    shot_cell.value = "M"
+    display_computer_shot_result_message(false)
+  end
+
+  def determine_whether_game_lost_by_user
+    if @user_own.lost_game?
+      @game_over = true
     end
   end
 

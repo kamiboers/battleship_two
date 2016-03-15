@@ -33,13 +33,21 @@ class ComputerInput
 
   def increment_upwards_on_board(ship, placement, axis, range)
     until !ship.cells.empty?
+      fill_range(ship, placement, axis, range)
+    break if !ship.cells.empty?
+      populate_ship_cells(ship, placement, axis, range)
+    end
+  end
+
+  def fill_range(ship, placement, axis, range)
     until range.count == ship.length
       next_cell = placement.gsub(placement[axis], placement[axis].next)
       range << next_cell
       increment_upwards_on_board(ship, next_cell, axis, range)
     end
+  end
 
-    break if !ship.cells.empty?
+  def populate_ship_cells(ship, placement, axis, range)
     if values_present_on_board?(range) && all_values_unoccupied?(range)
       ship.cells << range
       ship.cells.flatten!
@@ -49,7 +57,6 @@ class ComputerInput
     end
   end
 
-  end
 
   def values_present_on_board?(values_array)
     (values_array-@computer_board.possible_positions).empty?
