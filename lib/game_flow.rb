@@ -98,7 +98,7 @@ module GameFlow
       end
     else
       puts "You've already shot at this position. Shoot again:"
-      get_user_shot
+      validate_player_shot(receive_input)
     end
 
   end
