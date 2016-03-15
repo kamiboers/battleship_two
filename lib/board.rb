@@ -72,7 +72,6 @@ class Board
     end
   end
 
-
   def select_cell_by_name(cell_name)
     self.grid.flatten.find do |cell|
         cell.name == cell_name

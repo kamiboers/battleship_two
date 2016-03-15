@@ -62,10 +62,3 @@ class UserInput
   end
 
 end
-
-
-if __FILE__ == $0
-  user = UserInput.new
-
-  binding.pry
-end

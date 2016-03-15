@@ -10,7 +10,6 @@ class Ship
     @hits = 0
     @sunk = false
     @cells = []
-
   end
 
   def hit
@@ -27,9 +26,4 @@ class Ship
     @cells << cell
   end
 
-end
-
-if __FILE__ == $0
-  tug = Ship.new
-  binding.pry
 end

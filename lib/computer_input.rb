@@ -71,11 +71,3 @@ class ComputerInput
   end
 
 end
-
-
-if __FILE__ == $0
-  computer_play = ComputerInput.new
-  computer_play.computer_places_all_ships
-  binding.pry
-
-end
